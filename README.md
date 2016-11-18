@@ -58,24 +58,24 @@ Waf提供的功能满足了插件式的随时使用，并且提供了一个必�
 release释出文件可以从主站点下载，源文件可以从Github上获取。下载或大多数项目的提交都需要使用项目公钥（public key）登陆。
 * Waf可执行文件中包含一个可以被如下脚本验证的签名：  
 
-    $ wget https://waf.io/waf-1.9.5
-    $ ./waf/utils/verify-sig.py waf-1.9.5
+        $ wget https://waf.io/waf-1.9.5
+        $ ./waf/utils/verify-sig.py waf-1.9.5
 
 * 分发的源文件为其归档文件提供了签名文件：  
 
-    $ wget https://waf.io/waf-1.9.5.tar.bz2
-    $ wget https://waf.io/waf-1.9.5.tar.bz2.asc
-    $ gpg --verify waf-1.9.5.tar.bz2.asc  
+        $ wget https://waf.io/waf-1.9.5.tar.bz2
+        $ wget https://waf.io/waf-1.9.5.tar.bz2.asc
+        $ gpg --verify waf-1.9.5.tar.bz2.asc  
 
 * 大多数项目提交都使用相同的公钥签名：  
 
-    $ git clone https://github.com/waf-project/waf.git
-    $ cd waf/
-    $ git show --show-signature
-    commit b73ccba03cd5f34b40a36e1d60b6a082a04cd563
-    gpg: Signature made sam. 16 jul. 2016 17:31:19 CEST
-    gpg:                using RSA key 0x49B4C67C05277AAA
-    ...
+        $ git clone https://github.com/waf-project/waf.git
+        $ cd waf/
+        $ git show --show-signature
+        commit b73ccba03cd5f34b40a36e1d60b6a082a04cd563
+        gpg: Signature made sam. 16 jul. 2016 17:31:19 CEST
+        gpg:                using RSA key 0x49B4C67C05277AAA
+        ...
 
 ##### 2.1.2如何运行Waf
 可执行文件可以直接通过Python解释器运行，如cPython2.5至3.5，Pypy或JPython>=2.5。它提供了它自己压缩成二进制流的库文件，执行后这个库将解压到文件目录中的隐藏文件夹中（删除时会重新创建）。这个方案允许在相同文件夹和各个Python解释器版本下执行Waf的不同版本：  
