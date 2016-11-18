@@ -56,18 +56,18 @@ Waf提供的功能满足了插件式的随时使用，并且提供了一个必�
 #### 2.1获取Waf文件
 ##### 2.1.1如何下载Waf  
 release释出文件可以从主站点下载，源文件可以从Github上获取。下载或大多数项目的提交都需要使用项目公钥（public key）登陆。
-* Waf可执行文件中包含一个可以被如下脚本验证的签名：
+* Waf可执行文件中包含一个可以被如下脚本验证的签名：  
 
       $ wget https://waf.io/waf-1.9.5
       $ ./waf/utils/verify-sig.py waf-1.9.5
 
-* 分发的源文件为其归档文件提供了签名文件：
+* 分发的源文件为其归档文件提供了签名文件：  
 
       $ wget https://waf.io/waf-1.9.5.tar.bz2
       $ wget https://waf.io/waf-1.9.5.tar.bz2.asc
       $ gpg --verify waf-1.9.5.tar.bz2.asc  
 
-* 大多数项目提交都使用相同的公钥签名：
+* 大多数项目提交都使用相同的公钥签名：  
 
       $ git clone https://github.com/waf-project/waf.git
       $ cd waf/
