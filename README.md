@@ -91,4 +91,4 @@ release释出文件可以从主站点下载，源文件可以从Github上获取�
 另一种方法是在可见文件夹中提供waf文件，然后可以将它保存在例如Git这样的版本控制解决方案之中。例如，官方waf-light脚本并没有包含生成的waf库文件，但如果waflib文件夹存在，就可以像waf一样使用。  
 
 下图便表示查找waflib文件夹的过程：  
-<p align = center>![waflib](https://github.com/kklook/wafbook_cn/raw/master/book_image/waflib.png)</p>
+<p align = center> ![waflib](https://github.com/kklook/wafbook_cn/raw/master/book_image/waflib.png) </p>
