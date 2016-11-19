@@ -83,3 +83,12 @@ release释出文件可以从主站点下载，源文件可以从Github上获取�
       $ python waf-1.9.5 --help
       $ ls -ld .waf*
       .waf-1.9.5-2c924e3f453eb715218b9cc852291170
+
+不需要安装，但Python解释器必须有一个bzip2解压缩模块；如果缺少此模块，那么可能需要使用源码生成Waf（请参阅下一节）。  
+
+此外，Waf文件所在的文件夹必须是可以写入的；如果无法做到，一个选择就是将WAFDIR环境变量指向一个其中包含名为waflib目录的文件夹。
+
+另一种方法是在可见文件夹中提供waf文件，然后可以将它保存在例如Git这样的版本控制解决方案之中。例如，官方waf-light脚本并没有包含生成的waf库文件，但如果waflib文件夹存在，就可以像waf一样使用。  
+
+下图便表示查找waflib文件夹的过程：  
+![waflib](https://github.com/kklook/wafbook_cn/raw/master/book_image/waflib.png)
