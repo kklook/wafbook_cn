@@ -92,3 +92,29 @@ release释出文件可以从主站点下载，源文件可以从Github上获取�
 
 下图便表示查找waflib文件夹的过程：  
 ![waflib](https://github.com/kklook/wafbook_cn/raw/master/book_image/waflib.png)
+
+##### 2.1.3 权限和别名
+
+由于Waf文件是一个Python脚本，通常通过调用Python执行：  
+
+      $ python waf
+
+在Unix-like系统上，通常可以通过设置执行权限，来避免每次调用Python的麻烦：  
+
+      $ chmod 755 waf
+      $ ./waf --version
+      waf 1.9.5 (54dc13ba5f51bfe2ae277451ec5ac1d0a91c7aaf)
+
+如果命令行解释器支持别名，建议设置别名而非重复输入命令：  
+
+      $ alias waf=$PWD/waf
+      $ waf --version
+      waf 1.9.5 (54dc13ba5f51bfe2ae277451ec5ac1d0a91c7aaf)
+
+另外，也可以修改执行环境的路径来指向waf的位置：  
+
+      $ export PATH=$PWD:$PATH
+      $ waf --version
+      waf 1.9.5 (54dc13ba5f51bfe2ae277451ec5ac1d0a91c7aaf)
+
+在Windows系统上为了方便起见，提供了一个waf.bat文件检测Python应用程序是否存在。它假设Python应用程序处于Waf文件相同的文件夹中。  
