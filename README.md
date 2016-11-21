@@ -118,3 +118,29 @@ release释出文件可以从主站点下载，源文件可以从Github上获取�
       waf 1.9.5 (54dc13ba5f51bfe2ae277451ec5ac1d0a91c7aaf)
 
 在Windows系统上为了方便起见，提供了一个waf.bat文件检测Python应用程序是否存在。它假设Python应用程序处于Waf文件相同的文件夹中。  
+
+#### 2.2 定制与重新分配
+
+##### 2.2.1 如何生成Waf可执行文件
+生成Waf需要Python解释器版本在2.6-3.5之间。源码被处理过以支持Python 2.5。  
+
+      $ wget https://waf.io/waf-1.9.5.tar.bz2
+      $ tar xjvf waf-1.9.5.tar.bz2
+      $ cd waf-1.9.5
+      $ ./waf-light
+      Configuring the project
+      Setting top to                           : /home/user/waf
+      Setting out to                           : /home/user/waf/build
+      Checking for program 'python'            : /usr/bin/python
+      Waf: Entering directory `/waf-1.9.5/build'
+      [1/1] Creating waf
+      Waf: Leaving directory `/waf-1.9.5/build'
+      'build' finished successfully (0.726s)
+
+对于较老版本的Python解释器，可以使用gzip压缩替代bzip2压缩来创建waf文件：  
+
+      $ python waf-light --zip-type=gz
+
+可以添加附加的扩展，并重新分配为waf文件的一部分。例如，源发布文件在waflib/extras文件夹下包含几个测试阶段的扩展。通过在--tools选项添加相对路径将会引入相应的文件，而添加绝对路径可以引用在文件系统上的任何文件，特别是非Python文件（他们最后将会被放置于本地的 waflib/extras/ 文件夹）：  
+
+      $ python waf-light --tools=swig,msvs
