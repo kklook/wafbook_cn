@@ -119,7 +119,7 @@ release释出文件可以从主站点下载，源文件可以从Github上获取�
 
 在Windows系统上为了方便起见，提供了一个waf.bat文件检测Python应用程序是否存在。它假设Python应用程序处于Waf文件相同的文件夹中。  
 
-#### 2.2 定制与重新分配
+#### 2.2 定制与再分发
 
 ##### 2.2.1 如何生成Waf可执行文件
 生成Waf需要Python解释器版本在2.6-3.5之间。源码被处理过以支持Python 2.5。  
@@ -144,3 +144,49 @@ release释出文件可以从主站点下载，源文件可以从Github上获取�
 可以添加附加的扩展，并重新分配为waf文件的一部分。例如，源发布文件在waflib/extras文件夹下包含几个测试阶段的扩展。通过在--tools选项添加相对路径将会引入相应的文件，而添加绝对路径可以引用在文件系统上的任何文件，特别是非Python文件（他们最后将会被放置于本地的 waflib/extras/ 文件夹）：  
 
       $ python waf-light --tools=swig,msvs
+
+##### 2.2.2 如何提供自定义的初始化模块
+提供一个初始化扩展，也可以用于在常规函数执行前执行的自定义功能。假设在当前目录中存在一个名为aba.py的文件：  
+
+      def foo():
+              from waflib.Context import WAFVERSION
+              print("This is Waf %s" % WAFVERSION)
+
+如下命令将创建一个自定义的waf文件，它将在调用waf库之前导入并执行函数foo。  
+
+      $ python waf-light --make-waf --tools=msvs,$PWD/aba.py
+         --prelude=$'\tfrom waflib.extras import aba\n\taba.foo()'
+      $ ./waf --help
+      This is Waf 1.9.5
+      [...]
+
+也可以添加return语句；请参阅waf-light的内容以了解更多信息，或研究build system kit中说明如何创建派生自waf的生成系统的样例。  
+
+##### 2.2.3 开源协议与再分发说明
+waf文件中包含的文件（waf-light和waflib下的所有文件）以如下所示的BSD协议发布：  
+
+      Redistribution and use in source and binary forms, with or without
+      modification, are permitted provided that the following conditions
+      are met:
+
+      1. Redistributions of source code must retain the above copyright
+         notice, this list of conditions and the following disclaimer.
+
+      2. Redistributions in binary form must reproduce the above copyright
+         notice, this list of conditions and the following disclaimer in the
+         documentation and/or other materials provided with the distribution.
+
+      3. The name of the author may not be used to endorse or promote products
+         derived from this software without specific prior written permission.
+
+      THIS SOFTWARE IS PROVIDED BY THE AUTHOR "AS IS" AND ANY EXPRESS OR
+      IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+      WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+      DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT,
+      INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+      (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+      SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+      HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+      STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
+      IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+      POSSIBILITY OF SUCH DAMAGE.
