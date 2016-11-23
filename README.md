@@ -190,3 +190,12 @@ waf文件中包含的文件（waf-light和waflib下的所有文件）以如下�
       STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING
       IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
       POSSIBILITY OF SUCH DAMAGE.
+
+虽然此许可被认为十分自由，但版权声明的副本必须被包含在衍生品之中。为了消除关于此的任何疑问，这样的声明副本已经被默认添加到waf文件：使用文件编辑器打开waf文件并阅读第一行。
+
+### 3.项目和命令
+----
+
+#### 3.1 Waf命令及用法
+
+由于Waf是用于生成项目通用实用程序，因此具体项目的细节信息最好和源码保存在一起进行版本控制。这种文件是使用Python编写的模块，并且命名为wscript。虽然他们可以包含任何Python代码，但Waf使用其中定义的特定函数与类。接下来的部分我们将探讨一个特别有用的概念，被叫做函数命令。
