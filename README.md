@@ -210,3 +210,21 @@ Waf通常在被称为终端或shell的命令行解释器中运行，有三种方
 ❶ CFLAGS参数是一个环境变量; 他以一种未经检查的方式提供任意数据至进程  
 ❷	Waf被指示以特定顺序运行两个命令distclean 和 configure。命令在waf文件调用后给出，不包含-或=字符  
 ❸	-j1 与 --help 是命令行选项；它们是可选的，并且它们在参数列表中的位置或顺序并不重要。  
+
+##### 3.1.2 Waf命令与Python函数之间的映射
+
+使用Waf命令假定在项目中的wscript文件定义了相应的命令函数，wscript文件通常处于当前文件夹下。他们采用单个上下文（context）变量作为参数，并且无需返回任何特定值，如以下示例所示：  
+
+      #! /usr/bin/env python
+      # encoding: utf-8
+
+      def hello(ctx):
+          print('hello world')
+
+使用命令来指示waf调用函数hello：  
+
+      $ waf hello
+      hello world
+      'hello' finished successfully (0.001s)
+
+上下文对象允许夸脚本进行数据共享，其用法将在下面部分描述。
