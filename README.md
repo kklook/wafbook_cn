@@ -227,4 +227,35 @@ Waf通常在被称为终端或shell的命令行解释器中运行，有三种方
       hello world
       'hello' finished successfully (0.001s)
 
-上下文对象允许夸脚本进行数据共享，其用法将在下面部分描述。
+上下文对象允许夸脚本进行数据共享，其用法将在下面部分描述。  
+
+##### 3.1.3 Waf命令链
+
+如前所述，命令按照命令行上的输入顺序执行。因此，一个wscript文件可以提供任意数量的命令在相同的wscript文件中：  
+
+      def ping(ctx):
+          print(' ping! %d' % id(ctx))
+
+      def pong(ctx):
+          print(' pong! %d' % id(ctx))
+
+而且这样的命令可以通过在命令行上的重复被多次调用：  
+
+      $ waf ping pong ping ping
+       ping! 140704847272272
+      'ping' finished successfully (0.001s)
+       pong! 140704847271376
+      'pong' finished successfully (0.001s)
+       ping! 140704847272336
+      'ping' finished successfully (0.001s)
+       ping! 140704847272528
+      'ping' finished successfully (0.001s)
+
+当错误发生时，命令执行将被中断，并且不会进一步执行后续的命令。  
+<table class="table table-bordered table-striped table-condensed"><tbody><tr>
+<td class="icon">
+<img src="https://github.com/kklook/wafbook_cn/raw/master/book_image/note.png" alt="Note">
+</td>
+<td class="content">
+命令行函数被调用时会传递一个新的上下文对象；该对象的类对应于特定命令；ConfigureContext类用于configure命令，BuildContext类用于build命令，OptionContext类用于option命令，Context类用于其他的命令。</td>
+</tr></tbody></table>
