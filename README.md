@@ -253,9 +253,9 @@ Waf通常在被称为终端或shell的命令行解释器中运行，有三种方
 
 当错误发生时，命令执行将被中断，并且不会进一步执行后续的命令。  
 <table class="table table-bordered table-striped table-condensed"><tbody><tr>
-<td class="icon">
+<td width = "57px">
 <img src="https://github.com/kklook/wafbook_cn/raw/master/book_image/note.png" alt="Note">
 </td>
-<td class="content">
+<td>
 命令行函数被调用时会传递一个新的上下文对象；该对象的类对应于特定命令；ConfigureContext类用于configure命令，BuildContext类用于build命令，OptionContext类用于option命令，Context类用于其他的命令。</td>
 </tr></tbody></table>
