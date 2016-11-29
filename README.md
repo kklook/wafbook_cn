@@ -270,3 +270,15 @@ Waf通常在被称为终端或shell的命令行解释器中运行，有三种方
 1. 项目目录：这个目录包含将会打包并重新分发给其他开发人员或最终用户的源文件  
 2. 生成目录：包含项目生成的文件的目录（配置集，生成文件，日志等）  
 3. 系统文件：不属于项目的文件或文件夹（如操作系统文件... ...）  
+
+名为configure的预定义命令用来收集和储存有关这些文件夹的信息。现在我们使用下面这个位于顶层文件夹的wscript文件来扩展上一节的示例：  
+
+      top = '.' ❶
+      out = 'build_directory' ❷
+
+      def configure(ctx): ❸
+              print('→ configuring the project in ' + ctx.path.abspath())
+
+      def ping(ctx):
+              print('→ ping from ' + ctx.path.abspath())
+              ctx.recurse('src')
