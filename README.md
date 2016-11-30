@@ -260,6 +260,49 @@ Waf通常在被称为终端或shell的命令行解释器中运行，有三种方
 命令行函数被调用时会传递一个新的上下文对象；该对象的类对应于特定命令；ConfigureContext类用于configure命令，BuildContext类用于build命令，OptionContext类用于option命令，Context类用于其他的命令。</td>
 </tr></tbody></table>
 
+##### 3.1.4 基本的项目结构
+
+虽然waf工程必须包含一个顶级的wscript文件，但它的内容可以划分成几个子项目文件。我们将在一个小的项目上说明这个概念：  
+
+      $ tree
+      |-- src
+      |   `-- wscript
+      `-- wscript
+
+在顶层的wscript命令将通过调用名为recurse的上下文对象方法从子项目中调用相同的命令：  
+
+```
+def ping(ctx):
+        print('→ ping from ' + ctx.path.abspath())
+        ctx.recurse('src')
+```
+
+这里是src/wscript的内容  
+
+```
+def ping(ctx):
+        print('→ ping from ' + ctx.path.abspath())
+```
+
+执行后，结果将会是：  
+
+```
+$ cd /tmp/execution_recurse
+
+$ waf ping
+→ ping from /tmp/execution_recurse
+→ ping from /tmp/execution_recurse/src
+'ping' finished successfully (0.002s)
+
+$ cd src
+
+$ waf ping
+→ ping from /tmp/execution_recurse/src
+'ping' finished successfully (0.001s)
+```
+
+
+
 #### 3.2 基本的Waf命令
 
 以下部分提供了经常使用或在项目文件中重新实现的Waf命令的详细信息。  
