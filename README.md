@@ -301,6 +301,14 @@ $ waf ping
 'ping' finished successfully (0.001s)
 ```
 
+<table class="table table-bordered table-striped table-condensed"><tbody><tr>
+<td width = "57px">
+<img src="https://github.com/kklook/wafbook_cn/raw/master/book_image/note.png" alt="Note">
+</td>
+<td>
+该方法递归执行，并且path属性在所有waf上下文类中可用，以便所有waf命令可以使用他们。
+</td>
+</tr></tbody></table>  
 
 
 #### 3.2 基本的Waf命令
@@ -325,3 +333,7 @@ $ waf ping
       def ping(ctx):
               print('→ ping from ' + ctx.path.abspath())
               ctx.recurse('src')
+
+❶表示项目所在目录的字符串。一般来说。top设置为 . ，除非wscript不能加到项目的顶级目录中，top可以设置成 ../.. 或者形如 /checkout/perforce/project 的路径  
+❷表示生成目录的字符串。一般设置为 build ，特殊情况下生成目录也可以设置成绝对路径，如 /tmp/build/ 。重要的是能够安全的删除生成目录。所以它不应该被设置成 . 或 ..  
+❸configure函数由configure命令调用  
