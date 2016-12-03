@@ -337,3 +337,56 @@ $ waf ping
 ❶表示项目所在目录的字符串。一般来说。top设置为 . ，除非wscript不能加到项目的顶级目录中，top可以设置成 ../.. 或者形如 /checkout/perforce/project 的路径  
 ❷表示生成目录的字符串。一般设置为 build ，特殊情况下生成目录也可以设置成绝对路径，如 /tmp/build/ 。重要的是能够安全的删除生成目录。所以它不应该被设置成 . 或 ..  
 ❸configure函数由configure命令调用  
+
+src/wscript 脚本保持不变：  
+
+```
+def ping(ctx):
+        print('→ ping from ' + ctx.path.abspath())
+```
+
+执行输出结果如下：  
+
+```
+$ cd /tmp/execution_configure ❶
+$ tree
+|-- src
+|   `-- wscript
+`-- wscript
+
+$ waf configure ❷
+→ configuring the project in /tmp/execution_configure
+'configure' finished successfully (0.021s)
+
+$ tree -a
+|-- build_directory/ ❸
+|   |-- c4che/ ❹
+|   |   |-- build.config.py ❺
+|   |   `-- _cache.py ❻
+|   `-- config.log ❼
+|--.lock-wafbuild ❽
+|-- src
+|   `-- wscript
+`-- wscript
+
+$ waf ping
+→ ping from /tmp/execution_configure
+→ ping from /tmp/execution_configure/src
+'ping' finished successfully (0.001s)
+
+$ cd src
+$ waf ping ❾
+→ ping from /tmp/execution_configure
+→ ping from /tmp/execution_configure/src
+'ping' finished successfully (0.001s)
+```
+
+❶要配置项目，请切换到包含顶级项目文件的目录  
+❷通过调用waf configure来执行configure函数  
+❸生成目录已经被创建  
+❹配置数据储存在 c4che / 文件夹中  
+❺生成过程中使用的命令行选项和环境变量储存在 build.config.py 中  
+❻用户的配置设置储存在 _cache.py 中  
+❼配置日志（配置中生成输出的副本）  
+❽这个隐藏文件内容指向了相关项目文件和生成目录  
+❾wscript文件配置期间执行的命令将会用于子文件夹的waf调用  
