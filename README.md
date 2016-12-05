@@ -390,3 +390,39 @@ $ waf ping ❾
 ❼配置日志（配置中生成输出的副本）  
 ❽这个隐藏文件内容指向了相关项目文件和生成目录  
 ❾wscript文件配置期间执行的命令将会用于子文件夹的waf调用  
+
+<table class="table table-bordered table-striped table-condensed"><tbody><tr>
+<td width = "57px">
+<img src="https://github.com/kklook/wafbook_cn/raw/master/book_image/note.png" alt="Note">
+</td>
+<td>
+从包含wscript文件的目录中调用waf configure
+</td>
+</tr></tbody></table>  
+
+##### 3.2.2 删除生成的文件(distclean 命令)
+
+名为distclean的命令用来删除在配置期间创建的生成目录和锁文件。在上一节的示例中：  
+
+```
+$ waf configure
+→ configuring the project in /tmp/execution_configure
+'configure' finished successfully (0.001s)
+
+$ tree -a
+|-- build_directory/
+|   |-- c4che/
+|   |   |-- build.config.py
+|   |   `-- _cache.py
+|   `-- config.log
+|--.lock-wafbuild
+`-- wscript
+
+$ waf distclean ❶
+'distclean' finished successfully (0.001s)
+
+$ tree ❷
+|-- src
+|   `-- wscript
+`-- wscript
+```
